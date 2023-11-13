@@ -37,10 +37,29 @@ app.use(cors())
 
 
 
-app.get("/", cors(),async(req,res) => {
-    res.send("This is working")
+app.get("/file-reorganization", cors(),async(req,res) => {
+    res.send("This is file-reorganization")
 })
 
+app.get("/portfolio-operations", cors(),async(req,res) => {
+    res.send("This is portfolio-operations")
+})
+
+app.get("/time-intervals", cors(),async(req,res) => {
+    res.send("This is time-intervals")
+})
+
+app.get("/data-encryption", cors(),async(req,res) => {
+    res.send("This is data-encryption")
+})
+
+app.get("/coin-change", cors(),async(req,res) => {
+    res.send("This is coin change")
+})
+
+app.get("/risk-mitigation", cors(),async(req,res) => {
+    res.send("This is risk-mitigation")
+})
 
 app.listen(port, () => {
     console.log(`Listening at http://localhost:${port}`)
