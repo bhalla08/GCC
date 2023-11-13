@@ -1,4 +1,5 @@
 const fileOrganization= require("./Code/file-organization.js")
+const portfolioOpetations = require("./Code/portfolio-operations.js");
 
 const express = require("express")
 
@@ -14,12 +15,11 @@ app.use(express.json())
 app.use(cors())
 
 app.post("/file-reorganization", cors(),async(req,res) => {
-    // res.send(fileOrganization.fileOrg(req.body.inputs)); // post your result in JSON format
-    res.json({ "answer": fileOrganization.fileOrg(req.body.inputs) })
+    res.json({ "answer": fileOrganization.fileOrg(req.body.inputs) });
 })
 
 app.post("/portfolio-operations", cors(),async(req,res) => {
-    res.send("This is portfolio-operations")
+    res.json({ "answer": portfolioOpetations.portfolioOpetations(req.body.inputs) });
 })
 
 app.post("/time-intervals", cors(),async(req,res) => {
