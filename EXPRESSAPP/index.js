@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(cors())
 
 app.post("/file-reorganization", cors(),async(req,res) => {
-    res.send(fileOrganization.fileOrg()); // post your result in JSON format
+    res.send(fileOrganization.fileOrg(req.body.inputs)); // post your result in JSON format
 })
 
 app.post("/portfolio-operations", cors(),async(req,res) => {

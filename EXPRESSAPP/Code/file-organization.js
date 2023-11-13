@@ -1,4 +1,5 @@
-const fileOrg = function fileOrganization() {
+const fileOrg = function fileOrganization(input) {
+    console.log(input);
     return "this is file reorg";
 }
 
