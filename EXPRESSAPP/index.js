@@ -1,26 +1,4 @@
-// const express = require('express');
-// const app = express();
-// const port = process.env.PORT || 3000; // Use the port defined by the environment or 3000 by default
-
-// app.use(express.json());
-
-// // Define your challenge-specific endpoints
-// app.post('/challenge1', (req, res) => {
-//   //const inputData = req.body; // Handle the data specific to challenge 1
-//   res.body(Challenge1);
-//   // Perform your processing here
-//   res.send('Challenge 1 completed!');
-// });
-
-// app.post('/challenge2', (req, res) => {
-//   const inputData = req.body; // Handle the data specific to challenge 2
-//   // Perform your processing here
-//   res.send('Challenge 2 completed!');
-// });
-
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
+const fileOrganization= require("./Code/file-organization.js")
 
 const express = require("express")
 
@@ -28,36 +6,34 @@ const app = express()
 
 const port = 4000;
 
-const cors = require("cors")        //would avoid any cors error in the server
+const cors = require("cors")
 
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(cors())
 
-
-
-app.get("/file-reorganization", cors(),async(req,res) => {
-    res.send("This is file-reorganization")
+app.post("/file-reorganization", cors(),async(req,res) => {
+    res.send(fileOrganization.fileOrg(req.body.inputs)); // post your result in JSON format
 })
 
-app.get("/portfolio-operations", cors(),async(req,res) => {
+app.post("/portfolio-operations", cors(),async(req,res) => {
     res.send("This is portfolio-operations")
 })
 
-app.get("/time-intervals", cors(),async(req,res) => {
+app.post("/time-intervals", cors(),async(req,res) => {
     res.send("This is time-intervals")
 })
 
-app.get("/data-encryption", cors(),async(req,res) => {
+app.post("/data-encryption", cors(),async(req,res) => {
     res.send("This is data-encryption")
 })
 
-app.get("/coin-change", cors(),async(req,res) => {
+app.post("/coin-change", cors(),async(req,res) => {
     res.send("This is coin change")
 })
 
-app.get("/risk-mitigation", cors(),async(req,res) => {
+app.post("/risk-mitigation", cors(),async(req,res) => {
     res.send("This is risk-mitigation")
 })
 
