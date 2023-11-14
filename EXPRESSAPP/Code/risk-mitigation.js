@@ -10,26 +10,31 @@ const riskMitigation = (input) => {
 }
 
 function calculate(stratagies, inputArr) {
-    var n = inputArr.length;
-    var maxDiffArray = new Array();
+    if (inputArr.length == 0) return 0;
 
-    for(var i = n-1; i >= 0; i--) {
-        var maxDiff = 0;
-        for(var j = i-1; j >=0; j--) {
-            maxDiff = Math.max(maxDiff, inputArr[i] - inputArr[j]);
+    if (stratagies > (inputArr.length / 2)) {
+        let profit = 0;
+        for (let i = 1; i < inputArr.length; i++) {
+            if (inputArr[i] > inputArr[i - 1]) {
+                profit += inputArr[i] - inputArr[i - 1];
+            }
         }
-        maxDiffArray[i] = maxDiff;
+        return profit;
     }
-
-    maxDiffArray.sort();
-    maxDiffArray.reverse();
-
-    var res = 0;
-    for(var i = 0 ; i < stratagies; i++) {
-        res = res + maxDiffArray[i];
+    else {
+        let dp = new Array(inputArr.length).fill(0);
+        let size = inputArr.length;
+        for (let t = 1; t <= stratagies; t++) {
+            let min = inputArr[0];
+            let max = 0;
+            for (let i = 0; i < size; i++) {
+                min = Math.min(min, inputArr[i] - dp[i]);
+                max = Math.max(max, inputArr[i] - min);
+                dp[i] = max
+            }
+        }
+        return dp.pop();
     }
-
-    return res;
 
 }
 
