@@ -1,6 +1,7 @@
 const fileOrganization = require("./Code/file-organization.js")
 const portfolioOpetations = require("./Code/portfolio-operations.js");
 const riskMitigation = require("./Code/risk-mitigation.js");
+const timeIntervals = require("./Code/time-intervals.js");
 
 const express = require("express")
 
@@ -9,7 +10,6 @@ const app = express()
 const port = 4000;
 
 const cors = require("cors");
-
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -24,7 +24,7 @@ app.post("/portfolio-operations", cors(),async(req,res) => {
 })
 
 app.post("/time-intervals", cors(),async(req,res) => {
-    res.send("This is time-intervals")
+    res.json({ "answer": timeIntervals.timeIntervals(req.body.inputs) });
 })
 
 app.post("/data-encryption", cors(),async(req,res) => {
