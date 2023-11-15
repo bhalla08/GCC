@@ -26,7 +26,7 @@ app.post("/portfolio-operations", cors(),async(req,res) => {
 })
 
 app.post("/time-intervals", cors(),async(req,res) => {
-    res.json({ "answer": "Hiii there"});
+    res.send( timeIntervals.timeIntervals(req.body.inputs) );
 })
 
 app.post("/data-encryption", cors(),async(req,res) => {
