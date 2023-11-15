@@ -2,6 +2,7 @@ const fileOrganization = require("./Code/file-organization.js")
 const portfolioOpetations = require("./Code/portfolio-operations.js");
 const riskMitigation = require("./Code/risk-mitigation.js");
 const timeIntervals = require("./Code/time-intervals.js");
+const coinChange = require("./Code/coin-change.js")
 
 const express = require("express")
 
@@ -32,7 +33,7 @@ app.post("/data-encryption", cors(),async(req,res) => {
 })
 
 app.post("/coin-change", cors(),async(req,res) => {
-    res.send("This is coin change")
+    res.json({ "answer": coinChange.coinChange(req.body.inputs) });
 })
 
 app.post("/risk-mitigation", cors(),async(req,res) => {
