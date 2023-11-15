@@ -21,7 +21,9 @@ function calculate(inputObj, n) {
     }
     
     var arr = [...setArr];
-    arr.sort(); 
+    arr.sort(function(a, b) {
+        return a - b;
+    })
     var resName = new Array();
     var b = 0;
     for(var i = 0 ; i < arr.length - 1; i++) {
