@@ -4,6 +4,8 @@ const riskMitigation = require("./Code/risk-mitigation.js");
 const timeIntervals = require("./Code/time-intervals.js");
 const coinChange = require("./Code/coin-change.js")
 const dataEncryption = require("./Code/data-encryption.js");
+const profitMaximization = require("./Code/profit-maximization.js");
+
 
 const express = require("express")
 
@@ -39,6 +41,10 @@ app.post("/coin-change", cors(),async(req,res) => {
 
 app.post("/risk-mitigation", cors(),async(req,res) => {
     res.json({ "answer": riskMitigation.riskMitigation(req.body.inputs) });
+})
+
+app.post("/profit-maximization", cors(),async(req,res) => {
+    res.json({ "answer": profitMaximization.profitMaximization(req.body.inputs) });
 })
 
 app.listen(port, () => {
