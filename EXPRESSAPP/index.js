@@ -5,6 +5,9 @@ const timeIntervals = require("./Code/time-intervals.js");
 const coinChange = require("./Code/coin-change.js")
 const dataEncryption = require("./Code/data-encryption.js");
 const profitMaximization = require("./Code/profit-maximization.js");
+const mlmmProgram = require("./Code/mlmm-program.js");
+
+
 
 
 const express = require("express")
@@ -45,6 +48,10 @@ app.post("/risk-mitigation", cors(),async(req,res) => {
 
 app.post("/profit-maximization", cors(),async(req,res) => {
     res.json({ "answer": profitMaximization.profitMaximization(req.body.inputs) });
+})
+
+app.post("/mlmm-program", cors(),async(req,res) => {
+    res.json({ "answer": mlmmProgram.mlmmProgram(req.body.inputs) });
 })
 
 app.listen(port, () => {
