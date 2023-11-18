@@ -1,33 +1,38 @@
-const mlmmProgram = (inputs) =>{
+const mlmmProgram = function maxBoW (input) {
 
-    const answer = [];
+    const result = [];
   
-     for (const input of inputs) {
-    const cutoff = parseInt(input[0]);
-    const numScores = parseInt(input[1]);
-    const scores = input[2].split(' ').map(Number);
+    for (const input_data of input) {
+      const cutoff = parseInt(input_data[0]);
+      const scores = input_data[2].split(' ').map(Number);
+      const n = scores.length;
 
-    let currentSum = 0;
-    let count = 0;
+      let total = 0;
+      let count = 0;
+      let left = 0;
 
-    for (const score of scores) {
-      currentSum = Math.max(0, currentSum + score);
+      for (let right = 0; right < n; right++) {
+          total += scores[right];
 
-      if (currentSum < cutoff) {
-        count++;
+          while (total > cutoff) {
+              total -= scores[left];
+              left += 1;
+          }
+
+          count += (right - left + 1);
       }
-    }
 
-    answer.push(count);
+      result.push(count);
   }
-    return answer;
-  
-  }
-  
-  
-  
-  
-  
+
+  return result;
+}
+
+// const output = maxBoW(input);
+// console.log(JSON.stringify(output, null, 4));
+//build fail
+
+
   module.exports = {
     mlmmProgram
   }
