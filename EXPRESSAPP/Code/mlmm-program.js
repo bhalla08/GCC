@@ -28,6 +28,9 @@ function distSumRec(arr,n,sum,currindex,s)
      
     function printDistSum(arr,n, cutoff)
     {
+      if(cutoff === 0) {
+        return cutoff + 1;
+      }
         let s=new Set();
         var count = 0;
         distSumRec(arr, n, 0, 0, s);
