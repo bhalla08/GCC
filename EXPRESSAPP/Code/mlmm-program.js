@@ -30,6 +30,7 @@ const mlmmProgram = function maxBoW (input) {
 
 // const output = maxBoW(input);
 // console.log(JSON.stringify(output, null, 4));
+//build fail
 
 
   module.exports = {
