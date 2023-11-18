@@ -6,7 +6,7 @@ const coinChange = require("./Code/coin-change.js")
 const dataEncryption = require("./Code/data-encryption.js");
 const profitMaximization = require("./Code/profit-maximization.js");
 const mlmmProgram = require("./Code/mlmm-program.js");
-
+const fraudulentTransactions = require("./Code/fraudulent-transactions.js")
 
 
 
@@ -52,6 +52,10 @@ app.post("/profit-maximization", cors(),async(req,res) => {
 
 app.post("/mlmm-program", cors(),async(req,res) => {
     res.json({ "answer": mlmmProgram.mlmmProgram(req.body.inputs) });
+})
+
+app.post("/fraudulent-transactions", cors(),async(req,res) => {
+    res.json({ "answer": fraudulentTransactions.fraudulentTransactions(req.body.inputs) });
 })
 
 app.listen(port, () => {

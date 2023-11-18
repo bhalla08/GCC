@@ -1,38 +1,44 @@
-const mlmmProgram = function maxBoW (input) {
+const mlmmProgram = (inputs) => {
 
-    const result = [];
-  
-    for (const input_data of input) {
-      const cutoff = parseInt(input_data[0]);
-      const scores = input_data[2].split(' ').map(Number);
-      const n = scores.length;
+  const answer = [];
 
-      let total = 0;
-      let count = 0;
-      let left = 0;
-
-      for (let right = 0; right < n; right++) {
-          total += scores[right];
-
-          while (total > cutoff) {
-              total -= scores[left];
-              left += 1;
-          }
-
-          count += (right - left + 1);
-      }
-
-      result.push(count);
+  for (const input of inputs) {
+    const cutoff = parseInt(input[0]);
+    const numScores = parseInt(input[1]);
+    const scores = input[2].split(' ').map(Number);
+    answer.push(findUniqueSubsets(scores.sort(), cutoff));
   }
-
-  return result;
+  return answer;
 }
 
-// const output = maxBoW(input);
-// console.log(JSON.stringify(output, null, 4));
-//build fail
+function findUniqueSubsets(nums, target) {
+  const result = [];
+  nums.sort((a, b) => a - b); // Sort the input array
 
+  backtrack([], 0, nums, target);
+  return result.length-1;
 
-  module.exports = {
-    mlmmProgram
+  function backtrack(currentSubset, start, nums, target) {
+      if (currentSubset.reduce((sum, num) => sum + num, 0) >= target) {
+          return;
+      }
+
+      result.push([...currentSubset]);
+
+      for (let i = start; i < nums.length; i++) {
+          // Skip duplicates
+          if (i > start && nums[i] === nums[i - 1]) {
+              continue;
+          }
+
+          currentSubset.push(nums[i]);
+          backtrack(currentSubset, i + 1, nums, target);
+          currentSubset.pop();
+      }
   }
+}
+
+
+module.exports = {
+  mlmmProgram
+}
