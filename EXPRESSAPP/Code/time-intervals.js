@@ -37,7 +37,9 @@ function calculate(inputObj, n) {
         }
         nArr = nArr.sort();
         var strArr = nArr.toString();
-        strArr = strArr.replaceAll(",", " ");
+        console.log(strArr);
+        strArr = strArr.split(",").join(" ");
+        console.log(strArr);
         var strRes = (arr[i] + " " + arr[i + 1] + " " + nArr.length + " " + strArr);
         resName[b++] = strRes;
     }
