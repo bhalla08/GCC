@@ -7,27 +7,24 @@ const mlmmProgram = (inputs) => {
     const numScores = parseInt(input[1]);
     var scores = input[2].split(' ').map(Number);
     scores = scores.sort();
-    answer.push(findMaxBooks(cutoff, scores));
+    answer.push(findMaxBooks(cutoff, scores, numScores));
   }
   return answer;
 }
 
-function findMaxBooks(cutoff, scores) {
-  const n = scores.length;
-  let maxBooks = 0;
-  let currentSum = 0;
+function findMaxBooks(cutoff, scores, numModels) {
+  const dp = Array.from({ length: numModels + 1 }, () => Array(cutoff + 1).fill(0));
 
-  for (let i = 0; i < n; i++) {
-      currentSum += scores[i];
-
-      if (currentSum < cutoff) {
-          maxBooks++;
-      } else {
-          currentSum = Math.max(0, currentSum - scores[i]);
+  for (let i = 1; i <= numModels; i++) {
+    for (let j = 0; j <= cutoff; j++) {
+      dp[i][j] = dp[i - 1][j];
+      if (j >= scores[i - 1]) {
+        dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - scores[i - 1]] + 1);
       }
+    }
   }
 
-  return maxBooks;
+  return dp[numModels][cutoff];
 }
 
 
