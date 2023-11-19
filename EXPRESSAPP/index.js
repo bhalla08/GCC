@@ -31,7 +31,7 @@ app.post("/portfolio-operations", cors(),async(req,res) => {
 })
 
 app.post("/time-intervals", cors(),async(req,res) => {
-    res.send( timeIntervals.timeIntervals(req.body.inputs) );
+    res.send( { "answer": timeIntervals.timeIntervals(req.body.inputs) });
 })
 
 app.post("/data-encryption", cors(),async(req,res) => {
