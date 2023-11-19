@@ -1,66 +1,56 @@
 // Not done - Needs improvement
 
 function fraudulentTransactions(inputs) {
-    return inputs.map(transactions => {
-        return isTransactionEligible(transactions) ? 'Eligible' : 'Ineligible';
-    });
+    try {
+
+        const results = inputs.map((inp) => {
+            const [n, l] = inp[0].split(' ').map(Number);
+            const transfers = inp.slice(1).map((str) => str.split(' ').map(Number));
+
+            return isEligibleTransaction(n, transfers);
+        });
+
+        return results;
+    } catch (error) {
+        return ({ error: error.message });
+    }
 }
 
-function isTransactionEligible(transfers) {
-    const graph = buildGraph(transfers);
+function isEligibleTransaction(n, transfers) {
+    const graph = new Array(n).fill().map(() => new Set());
 
-    for (const client of Object.keys(graph)) {
-        const visited = new Set();
-        if (hasCycle(client, client, visited, graph)) {
-            return false;
-        }
+    for (const [sender, receiver] of transfers) {
+        graph[sender].add(receiver);
     }
 
-    return true;
-}
+    function dfs(node, visited, path) {
+        visited[node] = true;
+        path.add(node);
 
-function refineInput(inputData) {
-    return inputData.slice(1).map(pair => {
-        const [a, b] = pair.split(" ").map(Number);
-        return [a, b];
-    });
-}
-
-function buildGraph(transfers) {
-    const graph = {};
-
-    transfers = refineInput(transfers);
-
-    for (const [from, to] of transfers) {
-        if (!graph[from]) {
-            graph[from] = [];
-        }
-        graph[from].push(to);
-    }
-
-    console.log(graph);
-
-    return graph;
-}
-
-function hasCycle(start, current, visited, graph) {
-    visited.add(current);
-
-    if (graph[current]) {
-        for (const neighbor of graph[current]) {
-            if (!visited.has(neighbor)) {
-                if (hasCycle(start, neighbor, visited, graph)) {
+        for (const neighbor of graph[node]) {
+            if (!path.has(neighbor)) {
+                if (visited[neighbor] || dfs(neighbor, visited, path)) {
                     return true;
                 }
-            } else if (neighbor === start) {
-                return true;
             }
+        }
+
+        path.delete(node);
+        return false;
+    }
+
+    for (let client = 0; client < n; client++) {
+        const visited = new Array(n).fill(false);
+        const path = new Set();
+
+        if (dfs(client, visited, path)) {
+            return 'Ineligible';
         }
     }
 
-    visited.delete(current);
-    return false;
+    return 'Eligible';
 }
+
 
 module.exports = {
     fraudulentTransactions
