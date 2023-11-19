@@ -6,25 +6,31 @@ const mlmmProgram = (inputs) => {
     const cutoff = parseInt(input[0]);
     const numScores = parseInt(input[1]);
     var scores = input[2].split(' ').map(Number);
-    scores = scores.sort();
-    answer.push(findMaxBooks(cutoff, scores, numScores));
+    console.log(scores)
+    answer.push(countContiguousSubsetsWithSum(scores, cutoff));
   }
   return answer;
 }
 
-function findMaxBooks(cutoff, scores, numModels) {
-  const dp = Array.from({ length: numModels + 1 }, () => Array(cutoff + 1).fill(0));
+function countContiguousSubsetsWithSum(arr, targetSum) {
+  let count = 0;
+  let start = 0;
+  let currentSum = 0;
 
-  for (let i = 1; i <= numModels; i++) {
-    for (let j = 0; j <= cutoff; j++) {
-      dp[i][j] = dp[i - 1][j];
-      if (j >= scores[i - 1]) {
-        dp[i][j] = Math.max(dp[i][j], dp[i - 1][j - scores[i - 1]] + 1);
-      }
+  for (let end = 0; end < arr.length; end++) {
+    currentSum += arr[end];
+
+    // Shrink the window as long as the sum exceeds the target
+    while (currentSum >= targetSum && currentSum>0) {
+      currentSum -= arr[start];
+      start++;
     }
+
+    // Every time the current window's sum is less than the target, update the count
+    count += end - start + 1;
   }
 
-  return dp[numModels][cutoff];
+  return count;
 }
 
 
