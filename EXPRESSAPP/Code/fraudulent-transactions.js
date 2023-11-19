@@ -1,19 +1,11 @@
-// Not done - Needs improvement
-
-function fraudulentTransactions(inputs) {
-    try {
-
-        const results = inputs.map((inp) => {
-            const [n, l] = inp[0].split(' ').map(Number);
-            const transfers = inp.slice(1).map((str) => str.split(' ').map(Number));
-
-            return isEligibleTransaction(n, transfers);
-        });
-
-        return results;
-    } catch (error) {
-        return ({ error: error.message });
-    }
+const fraudulentTransactions = (inputs) => {
+    const results = inputs.map((inp) => {
+        const [n, l] = inp[0].split(' ').map(Number);
+        const transfers = inp.slice(1).map((str) => str.split(' ').map(Number));
+    
+        return isEligibleTransaction(n, transfers);
+    });
+    return results;
 }
 
 function isEligibleTransaction(n, transfers) {
@@ -50,7 +42,6 @@ function isEligibleTransaction(n, transfers) {
 
     return 'Eligible';
 }
-
 
 module.exports = {
     fraudulentTransactions
